@@ -7,6 +7,7 @@ interface UseMissingDateParams {
 
 export const useMissingDate = ({ targetDateString }: UseMissingDateParams) => {
   const [dateInfo, setDateInfo] = useState<string>();
+  const [dayMissing, setDayMissing] = useState<string>()
 
   const missingDate = useCallback(() => {
     const now = dayjs();
@@ -15,8 +16,13 @@ export const useMissingDate = ({ targetDateString }: UseMissingDateParams) => {
     if (now.isAfter(targetDateString)) return "Rolê acabou migs";
 
     const targetDate = dayjs(targetDateString);
+
+    setDayMissing(now.to(targetDate))
+
     const dateMissing = dayjs(targetDate.diff(now, "date"));
     const duration = dayjs.duration(targetDate.diff(now));
+
+    
 
     return `${Math.trunc(duration.asHours())}:${dateMissing.format("mm:ss")}`;
   }, [targetDateString]);
@@ -31,5 +37,5 @@ export const useMissingDate = ({ targetDateString }: UseMissingDateParams) => {
     return () => clearInterval(timer);
   }, [missingDate]);
 
-  return { dateInfo };
+  return { dateInfo, dayMissing };
 };

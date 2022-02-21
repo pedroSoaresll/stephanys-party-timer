@@ -5,11 +5,16 @@ import styles from "../styles/Home.module.scss";
 const TARGET_DATE = "2022-02-26";
 
 const RenderMissingDate = () => {
-  const { dateInfo } = useMissingDate({
+  const { dateInfo, dayMissing } = useMissingDate({
     targetDateString: TARGET_DATE,
   });
 
-  return <p className={styles.date}>{dateInfo}</p>;
+  return (
+    <>
+      <p className={styles.date}>{dateInfo}</p>
+      <p className={styles.day_description}>{dayMissing}</p>
+    </>
+  );
 };
 
 const Home: NextPage = () => {
