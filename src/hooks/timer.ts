@@ -18,7 +18,6 @@ export const useMissingDate = ({ targetDateString }: UseMissingDateParams) => {
     const dateMissing = dayjs(targetDate.diff(now, "date"));
     const duration = dayjs.duration(targetDate.diff(now));
 
-    // return dateMissing.format('[Faltam: ]DD [dias]')
     return `${Math.trunc(duration.asHours())}:${dateMissing.format("mm:ss")}`;
   }, [targetDateString]);
 
